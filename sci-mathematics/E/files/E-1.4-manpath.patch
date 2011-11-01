@@ -1,0 +1,26 @@
+diff -Naru E-1.4.orig//Makefile E-1.4/Makefile
+--- E-1.4.orig//Makefile	2011-10-26 19:34:15.000000000 +0900
++++ E-1.4/Makefile	2011-10-26 19:34:49.000000000 +0900
+@@ -140,14 +140,14 @@
+ 	-sh -c 'development_tools/e_install PROVER/eground $(EXECPATH)'	
+ 	-sh -c 'development_tools/e_install PROVER/e_ltb_runner $(EXECPATH)'	
+ 	-sh -c 'development_tools/e_install PROVER/e_axfilter $(EXECPATH)'	
+-	-sh -c 'mkdir -p $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/eprover.1 $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/epclextract.1 $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/eproof.1 $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/eproof_ram.1 $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/eground.1 $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/e_ltb_runner.1 $(MANPATH)'
+-	-sh -c 'development_tools/e_install DOC/man/e_axfilter.1 $(MANPATH)'
++	-sh -c 'mkdir -p $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/eprover.1 $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/epclextract.1 $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/eproof.1 $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/eproof_ram.1 $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/eground.1 $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/e_ltb_runner.1 $(MANPATH)/man1'
++	-sh -c 'development_tools/e_install DOC/man/e_axfilter.1 $(MANPATH)/man1'
+ 
+ # Also remake documentation
+ 
