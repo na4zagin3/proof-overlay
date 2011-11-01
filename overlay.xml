@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories version="1.0">
+  <repo priority="50" quality="experimental" status="unofficial">
+    <name>proof</name>
+    <description>A overlay to provide ebuilds for automated provers.</description>
+    <owner>
+      <email>mrty.ityt.pt@gmail.com</email>
+    </owner>
+	<source type="git">git://github.com/na4zagin3/proof-overlay.git</source>
+  </repo>
+</repositories>
