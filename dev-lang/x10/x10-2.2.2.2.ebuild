@@ -39,5 +39,6 @@ src_install() {
 pkg_postinst() {
 	elog "Please add following line to your ~/bashrc"
 	elog ""
-	elog "	export PATH=\"/opt/x10/bin:$${PATH}\""
+	elog "	export PATH=\"/opt/x10/bin:\${PATH}\""
+	elog ""
 }
