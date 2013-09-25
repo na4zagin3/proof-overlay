@@ -5,18 +5,14 @@ EAPI="5"
 
 inherit versionator
 
-MY_PV=$(get_version_component_range 1-2)
-MY_P=${PN}-${MY_PV}
-
-
 DESCRIPTION="A Small Scale Reflection Extension for the Coq system"
 HOMEPAGE="http://ssr.msr-inria.inria.fr/"
 SRC_URI="
 	coq83p4? (
-		http://ssr.msr-inria.inria.fr/FTP/${MY_P}-coq8.3pl4.tar.gz
+		http://ssr.msr-inria.inria.fr/FTP/${P}-coq8.3pl4.tar.gz
 	)
 	coq84? (
-		http://ssr.msr-inria.inria.fr/FTP/${MY_P}-coq8.4.tar.gz
+		http://ssr.msr-inria.inria.fr/FTP/${P}-coq8.4.tar.gz
 	)
 	"
 
@@ -46,14 +42,14 @@ DEPEND="${RDEPEND}
 		dev-texlive/texlive-latexextra
 		)"
 
-S=${WORKDIR}/${MY_P}
+S=${WORKDIR}/${P}
 
 neededdocments="html mlihtml gallinahtml all.pdf all-gal.pdf"
 
 src_prepare () {
 	unpack "${A}"
-	cd "${S}/${MY_P}"
-	epatch "${FILESDIR}/${MY_P}-escape-for-ocamldoc.patch"
+	cd "${S}/${P}"
+	epatch "${FILESDIR}/${P}-escape-for-ocamldoc.patch"
 }
 
 src_configure() {
@@ -64,7 +60,7 @@ src_configure() {
 }
 
 src_compile() {
-	cd ${MY_P}
+	cd ${P}
 	emake STRIP="true" DSTROOT=/usr/ $myconf || die "make failed"
 	if use doc ; then
 		for d in ${neededdocments} ; do
@@ -74,7 +70,7 @@ src_compile() {
 }
 
 src_install() {
-	cd ${MY_P}
+	cd ${P}
 	emake STRIP="true" $myconf DSTROOT=${D}/usr/ install || die
 	dodoc ANNOUNCE README
 
