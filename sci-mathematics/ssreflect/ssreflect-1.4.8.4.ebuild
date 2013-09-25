@@ -9,7 +9,12 @@ MY_PV=$(get_version_component_range 1-2)
 MY_P=${PN}-${MY_PV}
 COQMAJVAR=$(get_version_component_range 3)
 COQMINVAR=$(get_version_component_range 4)
+COQPATCHVAR=$(get_version_component_range 5)
 COQVAR=${COQMAJVAR}.${COQMINVAR}
+if [[ "" != "$COQPATCHVAR" ]] ; then
+	COQVAR="${COQVAR}_p${COQPATCHVAR}"
+fi
+
 
 DESCRIPTION="A Small Scale Reflection Extension for the Coq system"
 HOMEPAGE="http://ssr.msr-inria.inria.fr/"
@@ -36,6 +41,14 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${MY_P}
 
+neededdocments="html mlihtml gallinahtml all.pdf all-gal.pdf"
+
+src_prepare () {
+	unpack "${A}"
+	cd "${S}/${MY_P}"
+	epatch "${FILESDIR}/${MY_P}-escape-for-ocamldoc.patch"
+}
+
 src_configure() {
 	myconf="
 		COQBIN=/usr/bin/
@@ -46,12 +59,25 @@ src_configure() {
 src_compile() {
 	cd ${MY_P}
 	emake STRIP="true" DSTROOT=/usr/ $myconf || die "make failed"
+	if use doc ; then
+		for d in ${neededdocments} ; do
+			emake -f Makefile.coq "$d" DSTROOT=/usr/ $myconf
+		done
+	fi
 }
 
 src_install() {
 	cd ${MY_P}
 	emake STRIP="true" $myconf DSTROOT=${D}/usr/ install || die
 	dodoc ANNOUNCE README
+
+	local d
+	for d in ${neededdocments} ; do
+		if [[ -s "${d}" ]] ; then
+			[[ -f "${d}" ]] && dodoc "$d"
+			[[ -d "${d}" ]] && dohtml -r "$d"
+		fi
+	done
 
 	insinto /usr/share/emacs/site-lisp
 	doins pg-ssr.el
