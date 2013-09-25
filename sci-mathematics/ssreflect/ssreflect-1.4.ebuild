@@ -7,26 +7,33 @@ inherit versionator
 
 MY_PV=$(get_version_component_range 1-2)
 MY_P=${PN}-${MY_PV}
-COQMAJVAR=$(get_version_component_range 3)
-COQMINVAR=$(get_version_component_range 4)
-COQPATCHVAR=$(get_version_component_range 5)
-COQVAR=${COQMAJVAR}.${COQMINVAR}
-if [[ "" != "$COQPATCHVAR" ]] ; then
-	COQVAR="${COQVAR}_p${COQPATCHVAR}"
-fi
 
 
 DESCRIPTION="A Small Scale Reflection Extension for the Coq system"
 HOMEPAGE="http://ssr.msr-inria.inria.fr/"
-SRC_URI="http://ssr.msr-inria.inria.fr/FTP/${MY_P}-coq${COQVAR}.tar.gz"
+SRC_URI="
+	coq83p4? (
+		http://ssr.msr-inria.inria.fr/FTP/${MY_P}-coq8.3pl4.tar.gz
+	)
+	coq84? (
+		http://ssr.msr-inria.inria.fr/FTP/${MY_P}-coq8.4.tar.gz
+	)
+	"
 
 LICENSE="CeCILL-B"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86"
-IUSE="doc"
+IUSE="doc coq83p4 +coq84"
 
-RDEPEND=">=sci-mathematics/coq-${COQVAR}[camlp5]
-	<sci-mathematics/coq-${COQMAJVAR}.$((${COQMINVAR}+1))[camlp5]
+RDEPEND="
+    coq83p4? (
+		>=sci-mathematics/coq-8.3_p4[camlp5]
+		<sci-mathematics/coq-8.4[camlp5]
+	)
+    coq84? (
+		>=sci-mathematics/coq-8.4[camlp5]
+		<sci-mathematics/coq-8.5[camlp5]
+	)
 	"
 DEPEND="${RDEPEND}
 	doc? (
