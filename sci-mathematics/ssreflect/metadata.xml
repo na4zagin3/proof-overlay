@@ -6,4 +6,7 @@
 <longdescription lang='en'>
   SSReflect is an extension for Coq that provides a modernized proof language.
 </longdescription>
+<use><flag name='coq83p4'>Use <pkg>~sci-mathematics/coq-8.3p4</pkg></use>
+<use><flag name='coq84'>Use <pkg>&gt;sci-mathematics/coq-8.4</pkg></use>
+<use><flag name='proofgeneral'>Install pg-ssr.el for <pkg>sci-mathematics/ProofGeneral</pkg></use>
 </pkgmetadata>
