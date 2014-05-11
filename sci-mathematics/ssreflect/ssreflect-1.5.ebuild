@@ -77,8 +77,6 @@ src_install() {
 
 pkg_postinst() {
 	if use proofgeneral ; then
-		insinto /usr/share/emacs/site-lisp
-		doins pg-ssr.el
     	elog "A script for ProofGeneral was installed into $PGSSRDIR."
     	elog "Please add following line to your ~/.emacs."
     	elog "    (load-file \"$PGSSRDIR/pg-ssr.el\")"
