@@ -43,6 +43,7 @@ src_configure() {
 		COQBIN=/usr/bin/
 		COQLIBINSTALL=$(get_libdir)/coq/user-contrib
 	    COQDOCINSTALL=share/doc/${PF}"
+	PGSSRDIR=/usr/share/emacs/site-lisp
 }
 
 src_compile() {
@@ -69,7 +70,17 @@ src_install() {
 	done
 
 	if use proofgeneral ; then
-		insinto /usr/share/emacs/site-lisp/ProofGeneral/generic
+		insinto $PGSSRDIR
 		doins pg-ssr.el
+	fi
+}
+
+pkg_postinst() {
+	if use proofgeneral ; then
+		insinto /usr/share/emacs/site-lisp
+		doins pg-ssr.el
+    	elog "A script for ProofGeneral was installed into $PGSSRDIR."
+    	elog "Please add following line to your ~/.emacs."
+    	elog "    (load-file \"$PGSSRDIR/pg-ssr.el\")"
 	fi
 }
