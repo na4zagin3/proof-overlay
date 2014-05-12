@@ -32,7 +32,7 @@ DEPEND="${RDEPEND}
 
 S=${WORKDIR}/${P}
 
-neededdocments="html mlihtml gallinahtml all.pdf all-gal.pdf"
+neededdocments="html"
 
 src_unpack () {
 	unpack "${A}"
@@ -50,9 +50,7 @@ src_compile() {
 	cd ${P}
 	emake STRIP="true" DSTROOT=/usr/ $myconf || die "make failed"
 	if use doc ; then
-		for d in ${neededdocments} ; do
-			emake -f Makefile.coq "$d" DSTROOT=/usr/ $myconf
-		done
+		emake DSTROOT=/usr/ $myconf doc || die "make failed"
 	fi
 }
 
@@ -65,7 +63,7 @@ src_install() {
 	for d in ${neededdocments} ; do
 		if [[ -s "${d}" ]] ; then
 			[[ -f "${d}" ]] && dodoc "$d"
-			[[ -d "${d}" ]] && dohtml -r "$d"
+			[[ -d "${d}" ]] && dodoc -r "$d"
 		fi
 	done
 
